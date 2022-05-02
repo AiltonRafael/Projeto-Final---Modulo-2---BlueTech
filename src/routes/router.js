@@ -6,7 +6,9 @@ import { getAll,
     getApagar,
     getPut,
     getFormEdit,
-    getSucess
+    getSucess,
+    postSearch,
+    getError
 } from '../controllers/FilmesController.js'
 
 export const routes = express.Router()
@@ -23,4 +25,7 @@ routes.get('/editar/:id', getFormEdit)
 routes.post('/editar_enviar/:id', getPut)
 
 routes.get('/sucess', getSucess)
- 
+
+routes.post('/search', postSearch)
+
+routes.get('/error', getError)

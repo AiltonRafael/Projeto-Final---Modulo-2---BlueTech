@@ -1,4 +1,8 @@
 import { Filmes } from '../models/Filmes.js';
+import Sequelize from 'sequelize';
+import { connection } from '../database/db.js';
+
+const Op = Sequelize.Op
 
 export const getAll = async (req, res) => {
     try {
@@ -38,6 +42,9 @@ export const getCriar = (req, res) => {
 export const postCriar = async (req, res) => {
     try {
     const { nome, ano, img, duracao, diretores, iframe } = req.body
+    if(!nome || !diretores || !img || !duracao || !diretores || !iframe){
+        res.redirect('/error')
+    }
     await Filmes.create({
         nome, ano, img, duracao, diretores, iframe
     })
@@ -108,4 +115,29 @@ export const getPut = async (req, res) => {
 
 export const getSucess = (req, res) => {
     res.render('sucess.ejs')
+}
+
+export const postSearch = async (req, res) => {
+    try {
+        const filmes = await Filmes.findAll({
+            where: {
+                nome: {
+                    [Op.iLike]: `%${req.body.search}%`
+                }
+            }
+        })
+        // const filmes = await connection.query(`SELECT * FROM filmes WHERE nome LIKE '%${req.body.search}%'`, {
+        //     Filmes
+        // })
+        res.render('index.ejs', {
+            filmes
+        })
+    }
+    catch(err) {
+        res.send(err.message)
+    }
+}
+
+export const getError = (req, res) => {
+    res.render('error.ejs')
 }

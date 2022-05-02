@@ -14,8 +14,8 @@ app.set('view engine', 'ejs')
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(routes)
 
-const port = process.env.PORT || 3002
+const port = process.env.PORT || 3001
 
-app.listen(port, (req, res) => {
+app.listen(port, () => {
     console.log(`Server running on ${port}`)
 })
