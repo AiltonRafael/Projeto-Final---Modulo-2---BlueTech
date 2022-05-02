@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,9 +8,12 @@
     <link rel="stylesheet" href="/css/criar.css" type="text/css">
     <title>Criar</title>
 </head>
+
 <body>
-    <%- include('./partials/header.ejs') %> 
-    <main>
+    <%- include('./partials/header.ejs') %>
+    <% if (modal) { %>
+    <section style="opacity: 1; z-index: 1;"> Mensagem Enviada! </section>
+    <main style="opacity: 0.2;">
         <fieldset id="main-fieldset">
             <legend> Novo Filme </legend>
             <form action="/criar" method="post">
@@ -17,7 +21,7 @@
                     <input type="text" name="nome" required>
                     <label for="nome"> Nome </label>
                 </fieldset>
-                
+
                 <fieldset>
                     <input type="number" name="ano" required>
                     <label for="ano"> Ano </label>
@@ -46,8 +50,57 @@
                 <div id="btn-container">
                     <button type="submit"> Enviar </button>
                 </div>
-            </fieldset>
+        </fieldset>
         </form>
     </main>
+    <script> 
+        setTimeout(() => {
+            window.location = '/'
+        }, 2000)
+    </script>
+    <% } else { %>
+    <main>
+        <fieldset id="main-fieldset">
+            <legend> Novo Filme </legend>
+            <form action="/criar" method="post">
+                <fieldset>
+                    <input type="text" name="nome" required>
+                    <label for="nome"> Nome </label>
+                </fieldset>
+
+                <fieldset>
+                    <input type="number" name="ano" required>
+                    <label for="ano"> Ano </label>
+                </fieldset>
+
+                <fieldset>
+                    <input type="url" name="img" required>
+                    <label for="img"> Url da Imagem </label>
+                </fieldset>
+
+                <fieldset>
+                    <input type="text" name="duracao" required>
+                    <label for="duracao"> Duração </label>
+                </fieldset>
+
+                <fieldset>
+                    <input type="text" name="diretores" required>
+                    <label for="diretores"> Diretore(a)s </label>
+                </fieldset>
+
+                <fieldset>
+                    <input type="text" name="iframe" required>
+                    <label for="iframe"> Iframe </label>
+                </fieldset>
+
+                <div id="btn-container">
+                    <button type="submit"> Enviar </button>
+                </div>
+        </fieldset>
+        </form>
+    </main>
+    <% } %>
+
 </body>
+
 </html>

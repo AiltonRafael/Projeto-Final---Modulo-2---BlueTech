@@ -8,13 +8,12 @@ dotenv.config()
 let __dirname = path.resolve(path.dirname(''))
 
 const app = express()
+app.use(express.urlencoded({extended: true}))
 app.set('view engine', 'ejs')
 app.use(express.static(path.join(__dirname, 'public')))
-app.use(express.urlencoded({extended: true}))
-app.use(express.json())
 app.use(routes)
 
-const port = process.env.PORT || 3001
+const port = process.env.PORT || 3002
 
 app.listen(port, (req, res) => {
     console.log(`Server running on ${port}`)

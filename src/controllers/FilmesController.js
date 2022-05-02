@@ -1,4 +1,4 @@
-import { Filmes } from '../models/Filmes.js'
+import { Filmes } from '../models/Filmes.js';
 
 export const getAll = async (req, res) => {
     try {
@@ -6,7 +6,7 @@ export const getAll = async (req, res) => {
             order: [["nome", "ASC"]]
         })
         res.status(200).render('index.ejs', {
-            filmes,
+            filmes
         })
     } catch (err) {
         res.status(500).send({
@@ -27,18 +27,23 @@ export const getDetalhes = async (req, res) => {
         })
     }
 }
+let modal = false
 
 export const getCriar = (req, res) => {
-    res.render('criar.ejs')
+    res.render('criar.ejs', {
+        modal
+    })
 }
 
 export const postCriar = async (req, res) => {
     try {
     const { nome, ano, img, duracao, diretores, iframe } = req.body
-    const filme = await Filmes.create({
+    await Filmes.create({
         nome, ano, img, duracao, diretores, iframe
     })
-    res.redirect('/')
+    modal = true
+    setTimeout(() => {modal = false}, 2000)
+    res.redirect('/criar')
     }
     catch(err) {
         res.status(500).send({
@@ -99,4 +104,8 @@ export const getPut = async (req, res) => {
     catch(err) {
         res.status(500).send({err: err.message})
     }
+}
+
+export const getSucess = (req, res) => {
+    res.render('sucess.ejs')
 }
